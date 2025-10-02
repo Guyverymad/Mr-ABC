@@ -58,6 +58,11 @@ int main()
             printf("ไม่ตรงตัวเลือก");
             break;
         }
+        if (choice == 6)
+        {
+            break;
+        }
+        
        
     }
     return 0;
@@ -69,7 +74,7 @@ int menu()
     printf("\n-----ระบบการลงทะเบียนเรียนออนไลน์-----\n");
     printf("[1] เพิ่มข้อมูลการลงทะเบียนเรียน\n");
     printf("[2] ค้นหาข้อมูล (จะเกิดขึ้นเร็วๆนี้)\n");
-    printf("[3] อัปเดตสถานะ (จะเกิดเร็วๆนี้)\n");
+    printf("[3] อัปเดตสถานะ \n");
     printf("[4] ลบข้อมูลผู้เรียน\n");
     printf("[5] แสดงข้อมูลทั้งหมด\n");   
     printf("[6] บันทึกและออกจากโปรแกรม\n"); 
@@ -84,7 +89,7 @@ void add_no_student()
     char temp_id[10];//ใช้เพื่อชั่วคราวในการcheck
     char temp_name[50];//ใช้เพื่อชั่วคราวในการcheck
     printf("\n-----เพิ่มข้อมูลการลงทะเบียนใหม่----\n");
-    printf("ชื่อผู้ใช้ :");
+    printf("ชื่อผู้เรียน :");
     // scanf(" %[^\n]", all_studentNames[record_count]);
     scanf(" %[^\n]", temp_name);
     if (check(temp_name, CHECK_NAME)) { 
@@ -95,7 +100,7 @@ void add_no_student()
     //scanf(" %[^\n]", all_studentIDs[record_count]);
     scanf(" %[^\n]", temp_id);
     if (check(temp_id, CHECK_ID)) { 
-        printf("!!: รหัสนักศึกษา '%s' นี้มีอยู่แล้วในระบบ !!\n", temp_id);
+        printf("!!: รหัสผู้เรียน '%s' นี้มีอยู่แล้วในระบบ !!\n", temp_id);
         return; 
     }
     strcpy(all_studentIDs[record_count], temp_id);  //  ตรวจรหัสชื่อซ้ำไหม
@@ -129,9 +134,9 @@ void load_data()
         token = strtok(NULL, ","); if (token != NULL) strcpy(all_studentIDs[record_count], token);
 
         token = strtok(NULL, ","); if (token != NULL) strcpy(all_courseCodes[record_count], token);
-
-        token = strtok(NULL, ","); if (token != NULL) strcpy(all_statuses[record_count], token);
         token = strtok(NULL, ","); if (token != NULL) strcpy(Registration_data[record_count], token);
+        token = strtok(NULL, ","); if (token != NULL) strcpy(all_statuses[record_count], token);
+        
 
         record_count++; 
     }
@@ -167,7 +172,7 @@ void display_all_records()//เเสดงข้อมูลทั้งหม�
     {
         printf("รายการที่%d:\n",i + 1 );
         printf("ชื่อ:%s\n",all_studentNames[i]);
-        printf("รหัสนักศึกษา:%s\n",all_studentIDs[i]);
+        printf("รหัสประจำตัวผู้เรียน:%s\n",all_studentIDs[i]);
         printf("รหัสวิชา:%s\n",all_courseCodes[i]);
         printf("วันที่ลงทะเบียน YYYY-MM-DD:%s\n",Registration_data[i]);
         printf("สถานะ:%s\n",all_statuses[i]);
@@ -221,7 +226,7 @@ void delete_by_name()//ลบข้อมูลโดยชื่อ
         strcpy(Registration_data[i],Registration_data[ i + 1]);
     }
     record_count -- ;
-    printf("ลบข้อมูลของ'%s'สำเร็จเเล้ว",search_name);
+    printf("ลบข้อมูลของ'%s'สำเร็จเเล้วอ้าย",search_name);
 }
 int index_by_name(char search_name[]) {
     for (int i = 0; i < record_count; i++) {
