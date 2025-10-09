@@ -745,7 +745,7 @@ void run_all_tests() {
     printf("\n\n======= 🧪 STARTING ALL TESTS 🧪 =======\n");
     runUnitTests();
     runIntegrationTests();
-    runE2ETests(); // ✅ เพิ่มฟังก์ชันทดสอบ End-to-End
+    runE2ETests(); 
     printf("\n\n======= ✅ ALL TESTS FINISHED ✅ =======\n\n");
 
     // กู้คืนข้อมูลเดิม
@@ -756,6 +756,8 @@ void run_all_tests() {
     }
     printf(" -> ข้อมูลเดิมในโปรแกรมถูกกู้คืนเรียบร้อยเเล้ว;\n");
 }
+
+
 
 
 
