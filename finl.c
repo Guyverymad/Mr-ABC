@@ -518,7 +518,7 @@ void display_record(int index) {
     printf("  วันที่ลงทะเบียน: %s\n", Registration_data[index]);
     printf("  สถานะ: %s\n", all_statuses[index]);
 }
-
+//
 void runUnitTests() {
     printf(YELLOW "\n===== 🔍 เริ่มการทดสอบ Unit Test =====\n" RESET);
 
