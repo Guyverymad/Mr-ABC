@@ -754,9 +754,8 @@ void run_all_tests() {
         strcpy(all_studentNames[i], temp_names[i]);
         strcpy(all_studentIDs[i], temp_ids[i]);
     }
-    printf(" -> ข้อมูลเดิมในโปรแกรมถูกกู้คืนเรียบร้อย\n");
+    printf(" -> ข้อมูลเดิมในโปรแกรมถูกกู้คืนเรียบร้อยเเล้ว;\n");
 }
-
 
 
 
