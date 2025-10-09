@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-//tests
+
 void runUnitTests();
 void runIntegrationTests();
 void run_all_tests();
@@ -259,7 +259,7 @@ int find_record_index_by_name(char search_name[])
             return i; // เจอindex
         }
     }
-    return -1; // ไม่เจอ
+    return -1; // ไม่เจอindex
 }
 
 void delete_by_name()
