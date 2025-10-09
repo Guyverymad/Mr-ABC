@@ -218,7 +218,7 @@ void display_all_records() // เเสดงข้อมูลทั้งห�
     }
     for (int i = 0; i < record_count; i++)
     {
-        printf("รายการที่%d:\n", i + 1);
+        printf("\nรายการที่%d:\n", i + 1);
         printf("ชื่อ:%s\n", all_studentNames[i]);
         printf("รหัสประจำตัวผู้เรียน:%s\n", all_studentIDs[i]);
         printf("รหัสวิชา:%s\n", all_courseCodes[i]);
