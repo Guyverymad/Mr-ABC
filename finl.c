@@ -195,8 +195,7 @@ void save_data(const char* filename)
     FILE *file = fopen(filename, "w");
     if (file == NULL)
     {
-        printf("ไม่สามารถเปิดไฟล์ได้");
-        save_data(filename);
+        printf("!! ไม่สามารถเปิดไฟล์ได้: %s !!\n", filename);
         return;
     }
     fprintf(file, "StudentName,studentIDs,CourseCode,RegistrationDate,EnrollmentStatus\n");
@@ -644,21 +643,112 @@ void runIntegrationTests() {
 
     printf(GREEN "\n✅ Integration Tests เสร็จสิ้น\n" RESET);
 }
+// ========== 🚀 ชุดทดสอบที่ 3: End-to-End (E2E) Tests 🚀 ==========
+void runE2ETests() {
+    printf(YELLOW "\n===== 🚀 เริ่มการทดสอบแบบ End-to-End (E2E) =====\n" RESET);
+
+    const char *test_file = "e2e_test_temp.csv";
+    record_count = 0;
+
+    // Step 1: เริ่มระบบ (โหลดไฟล์ - จะสร้างใหม่ถ้าไม่เจอ)
+    printf(BLUE "\nStep 1: โหลดไฟล์ทดสอบ %s\n" RESET, test_file);
+    load_data(test_file);
+
+    // Step 2: เพิ่มข้อมูลใหม่จำลอง
+    printf(BLUE "\nStep 2: เพิ่มข้อมูลนักเรียนใหม่ 'GUY5555'\n" RESET);
+    strcpy(all_studentNames[record_count], "GUY5555");
+    strcpy(all_studentIDs[record_count], "444");
+    strcpy(all_courseCodes[record_count], "MATH104");
+    strcpy(Registration_data[record_count], "2025-04-01");
+    strcpy(all_statuses[record_count], "In Progress");
+    record_count++;
+    printf(GREEN "✅ เพิ่มข้อมูล 'GUY5555' สำเร็จ\n" RESET);
+
+    // Step 3: บันทึกข้อมูลลงไฟล์
+    printf(BLUE "\nStep 3: บันทึกข้อมูลลงไฟล์ %s\n" RESET, test_file);
+    save_data(test_file);
+
+    // Step 4: ตรวจสอบว่าข้อมูลถูกต้องในหน่วยความจำ
+    int index = find_record_index_by_name("GUY5555");
+    if (index != -1) {
+        printf(GREEN "✅ พบข้อมูล 'GUY5555' ในหน่วยความจำ\n" RESET);
+    } else {
+        printf(RED "❌ ไม่พบข้อมูล 'GUY5555' หลังเพิ่ม\n" RESET);
+    }
+
+    // Step 5: อัปเดตสถานะ
+    printf(BLUE "\nStep 5: อัปเดตสถานะเป็น 'Completed'\n" RESET);
+    strcpy(all_statuses[index], "Completed");
+    printf(GREEN "✅ อัปเดตสถานะสำเร็จ\n" RESET);
+
+    // Step 6: บันทึกอีกครั้งหลังอัปเดต
+    save_data(test_file);
+
+    // Step 7: ล้างข้อมูลทั้งหมดในหน่วยความจำ
+    printf(BLUE "\nStep 6: ล้างข้อมูลใน memory แล้วโหลดกลับจากไฟล์\n" RESET);
+    record_count = 0;
+    load_data(test_file);
+
+    // Step 8: ตรวจสอบข้อมูลหลังโหลดกลับ
+    printf(BLUE "\nStep 7: ตรวจสอบความถูกต้องของข้อมูลที่โหลด\n" RESET);
+    if (record_count == 1 &&
+        strcmp(all_studentNames[0], "GUY5555") == 0 &&
+        strcmp(all_studentIDs[0], "444") == 0 &&
+        strcmp(all_courseCodes[0], "MATH104") == 0 &&
+        strcmp(Registration_data[0], "2025-04-01") == 0 &&
+        strcmp(all_statuses[0], "Completed") == 0)
+    {
+        printf(GREEN "✅ ข้อมูลที่โหลดกลับมาตรงทั้งหมด\n" RESET);
+    } else {
+        printf(RED "❌ ข้อมูลไม่ตรงหลังโหลดไฟล์\n" RESET);
+    }
+
+    // Step 9: ลบข้อมูลออกจาก memory และไฟล์
+    printf(BLUE "\nStep 8: ลบข้อมูล 'GUY5555' ออกจากระบบ\n" RESET);
+    int index_to_delete = find_record_index_by_name("GUY5555");
+    if (index_to_delete != -1) {
+        for (int i = index_to_delete; i < record_count - 1; i++) {
+            strcpy(all_studentNames[i], all_studentNames[i + 1]);
+            strcpy(all_studentIDs[i], all_studentIDs[i + 1]);
+            strcpy(all_courseCodes[i], all_courseCodes[i + 1]);
+            strcpy(Registration_data[i], Registration_data[i + 1]);
+            strcpy(all_statuses[i], all_statuses[i + 1]);
+        }
+        record_count--;
+        printf(GREEN "✅ ลบข้อมูล 'GUY5555' สำเร็จ\n" RESET);
+    } else {
+        printf(RED "❌ ไม่พบข้อมูล 'GUY5555' เพื่อลบ\n" RESET);
+    }
+
+    // Step 10: เซฟอีกครั้งเพื่อให้ไฟล์ว่าง
+    save_data(test_file);
+
+    // Step 11: แสดงผลทั้งหมด
+    printf(BLUE "\nStep 9: แสดงข้อมูลที่เหลือหลังลบ\n" RESET);
+    display_all_records();
+
+    // Step 12: ลบไฟล์ทดสอบ
+    remove(test_file);
+
+    printf(GREEN "\n🎯 E2E Tests เสร็จสิ้น — ระบบผ่านทุกขั้นตอนครบวงจร!\n" RESET);
+}
+
 void run_all_tests() {
-    // Save current state before testing
+    // สำรองข้อมูลเดิมไว้ก่อนรันทดสอบ
     int original_record_count = record_count;
-    char temp_names[100][50], temp_ids[100][10]; // Backup a few records
+    char temp_names[100][50], temp_ids[100][10];
     for(int i=0; i < original_record_count && i < 100; i++) {
         strcpy(temp_names[i], all_studentNames[i]);
         strcpy(temp_ids[i], all_studentIDs[i]);
     }
-    
-    printf("\n\n======= 🧪  STARTING ALL TESTS 🧪 =======\n");
+
+    printf("\n\n======= 🧪 STARTING ALL TESTS 🧪 =======\n");
     runUnitTests();
     runIntegrationTests();
+    runE2ETests(); // ✅ เพิ่มฟังก์ชันทดสอบ End-to-End
     printf("\n\n======= ✅ ALL TESTS FINISHED ✅ =======\n\n");
 
-    // Restore state after testing
+    // กู้คืนข้อมูลเดิม
     record_count = original_record_count;
     for(int i=0; i < original_record_count && i < 100; i++) {
         strcpy(all_studentNames[i], temp_names[i]);
@@ -666,6 +756,7 @@ void run_all_tests() {
     }
     printf(" -> ข้อมูลเดิมในโปรแกรมถูกกู้คืนเรียบร้อย\n");
 }
+
 
 
 
