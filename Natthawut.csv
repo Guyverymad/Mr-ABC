@@ -1,0 +1,17 @@
+StudentName,studentIDs,CourseCode,RegistrationDate,EnrollmentStatus
+StudentName,studentIDs,CourseCode,RegistrationDate,EnrollmentStatus
+Somsak Jaidee,660101,CS101,2024-05-20,In Progress
+Malee Petch,660102,ENG102,2024-05-21,In Progress
+Peter Parker,650210,PHY103,2023-08-15,Completed
+Tony Stark,650211,ENG401,2023-08-15,Completed
+Wanda Maximoff,670333,SCI202,2025-01-10,Registered
+Somchai Rakdee,640199,CS101,2022-08-12,Failed
+Preecha Chan,660105,ART100,2024-06-01,In Progress
+Susan Storm,650215,CHE301,2023-08-18,Completed
+David Banner,670345,BIO101,2025-01-12,Registered
+Janet Dyne,640180,CS101,2022-08-14,Withdrawn
+Lionel Messi,680010,PE101,2025-08-20,Registered
+Cristiano Ronaldo,680007,MKT202,2025-08-21,Registered
+Kylian Mbappe,680011,FRE101,2025-08-22,In Progress
+Erling Haaland,680009,PHY205,2025-08-20,In Progress
+Kevin De Bruyne,680017,ART210,2025-08-23,Completed
